@@ -1,0 +1,71 @@
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# OS generated files
+.DS_Store?
+ehthumbs.db
+Icon?
+Thumbs.db
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+.cache/
+.temp/
+
+# Environment and configuration files
+.env
+.env.local
+.env.*.local
+config.local.*
+
+# Node.js (if using tools)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python (if using tools)
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+venv/
+env/
+
+# R (if using R tools)
+.Rhistory
+.RData
+.Ruserdata
+*.Rout
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+
+# Testing
+coverage/
+.coverage
+.nyc_output
+
+# Documentation builds
+docs/_build/
+site/
+
+# Personal agent modifications
+*.local.md
+*.draft.md
+*.wip.md
+
+# Backup files
+*.bak
+*.backup
+*~
