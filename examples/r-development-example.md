@@ -166,8 +166,7 @@ moving_average <- function(x, window = 3,
   }
 
   if (window < 1) {
-    stop("Window size must be at least 1
-")
+    stop("Window size must be at least 1")
   }
 
   weights <- if (type == "weighted") {
