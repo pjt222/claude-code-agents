@@ -3,7 +3,7 @@ name: your-agent-name
 description: Brief description of what this agent does (1-2 sentences)
 tools: [Read, Write, Edit, Bash, Grep, Glob]
 model: claude-3-5-sonnet-20241022
-version: "1.0"
+version: "1.0.0"
 author: Your Name
 created: 2025-01-25
 updated: 2025-01-25
@@ -96,6 +96,6 @@ Agent: [Expected agent response/behavior]
 
 ---
 
-**Author**: Your Name  
-**Version**: 1.0  
+**Author**: Your Name
+**Version**: 1.0.0
 **Last Updated**: 2025-01-25

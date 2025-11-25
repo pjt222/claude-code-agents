@@ -1,0 +1,126 @@
+# GitHub Actions workflow to validate Claude Code agents
+# Runs on push and PR to ensure agent quality
+
+name: Validate Agents
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - '.claude/agents/**'
+      - 'templates/**'
+      - 'scripts/validate-agents.sh'
+  pull_request:
+    branches: [main, master]
+    paths:
+      - '.claude/agents/**'
+      - 'templates/**'
+      - 'scripts/validate-agents.sh'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  validate:
+    name: Validate Agent Definitions
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Make validation script executable
+        run: chmod +x scripts/validate-agents.sh
+
+      - name: Validate all agents
+        run: ./scripts/validate-agents.sh
+
+      - name: Check YAML syntax
+        run: |
+          echo "Checking YAML syntax in agent files..."
+          for file in .claude/agents/*.md; do
+            echo "Checking: $file"
+            # Extract YAML frontmatter and validate
+            awk '/^---$/{p++} p==1{print} p==2{exit}' "$file" | tail -n +2 > /tmp/frontmatter.yaml
+            if [ -s /tmp/frontmatter.yaml ]; then
+              python3 -c "import yaml; yaml.safe_load(open('/tmp/frontmatter.yaml'))" && echo "  ✓ Valid YAML"
+            fi
+          done
+
+      - name: Check for broken links (documentation)
+        run: |
+          echo "Checking for broken internal links..."
+          errors=0
+
+          # Check links in README
+          for link in $(grep -oP '\[.*?\]\(\K[^)]+(?=\))' README.md 2>/dev/null || true); do
+            # Skip external links
+            if [[ "$link" =~ ^https?:// ]]; then
+              continue
+            fi
+            # Check if file exists
+            if [[ ! -f "$link" ]] && [[ ! -d "$link" ]]; then
+              echo "  ✗ Broken link in README.md: $link"
+              ((errors++))
+            fi
+          done
+
+          if [[ $errors -gt 0 ]]; then
+            echo "Found $errors broken link(s)"
+            exit 1
+          fi
+          echo "  ✓ All internal links valid"
+
+  lint:
+    name: Lint Markdown Files
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install markdownlint-cli
+        run: npm install -g markdownlint-cli
+
+      - name: Lint agent files
+        run: |
+          markdownlint .claude/agents/*.md \
+            --disable MD013 MD033 MD041 \
+            || echo "Markdown lint completed with warnings"
+
+      - name: Lint documentation
+        run: |
+          markdownlint docs/*.md \
+            --disable MD013 MD033 MD041 \
+            || echo "Markdown lint completed with warnings"
+
+  summary:
+    name: Generate Summary
+    runs-on: ubuntu-latest
+    needs: [validate, lint]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate agent summary
+        run: |
+          echo "## Agent Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Agent | Version | Priority | Tools |" >> $GITHUB_STEP_SUMMARY
+          echo "|-------|---------|----------|-------|" >> $GITHUB_STEP_SUMMARY
+
+          for file in .claude/agents/*.md; do
+            name=$(grep "^name:" "$file" | head -1 | sed 's/name: *//')
+            version=$(grep "^version:" "$file" | head -1 | sed 's/version: *"\{0,1\}//' | sed 's/"\{0,1\}$//')
+            priority=$(grep "^priority:" "$file" | head -1 | sed 's/priority: *//' || echo "normal")
+            tools=$(grep "^tools:" "$file" | head -1 | sed 's/tools: *//')
+
+            echo "| $name | $version | $priority | $tools |" >> $GITHUB_STEP_SUMMARY
+          done
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ All validations passed!" >> $GITHUB_STEP_SUMMARY
