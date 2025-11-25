@@ -9,6 +9,7 @@ This directory contains practical examples demonstrating how to use Claude Code 
 | [code-review-example.md](code-review-example.md) | code-reviewer | Reviewing a pull request |
 | [r-development-example.md](r-development-example.md) | r-developer | Creating an R package |
 | [security-audit-example.md](security-audit-example.md) | security-analyst | Auditing a web application |
+| [chaos-engineering-example.md](chaos-engineering-example.md) | chaos-engineer | Designing resilience experiments 💥 |
 
 ## How to Use These Examples
 

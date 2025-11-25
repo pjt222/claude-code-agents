@@ -38,6 +38,9 @@ claude-code-agents/
 - **r-developer**: Specialized for R package development, data analysis, and statistical computing with MCP integration
 - **security-analyst**: Security auditing, vulnerability assessment, and defensive security practices (OWASP, NIST, ISO 27001)
 
+### Testing & Reliability Agents
+- **chaos-engineer**: Chaos engineering, resilience testing, and failure injection to validate system reliability 💥
+
 ## Agent Structure
 
 Each agent follows a standardized format:
