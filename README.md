@@ -22,24 +22,24 @@ This repository provides a structured way to define and manage Claude Code sub-a
 ```
 claude-code-agents/
 ├── .claude/agents/          # Agent definitions
-├── docs/                    # Documentation
-├── examples/               # Usage examples
-├── templates/              # Agent templates
-├── README.md              # This file
-└── LICENSE                # MIT License
+├── docs/                    # Documentation & guides
+├── examples/                # Usage examples & demos
+├── scripts/                 # Validation & utility scripts
+├── templates/               # Agent templates
+├── .github/workflows/       # CI/CD automation
+├── README.md                # This file
+└── LICENSE                  # MIT License
 ```
 
 ## Available Agents
 
 ### Core Development Agents
-- **code-reviewer**: Reviews code changes, pull requests, and suggests improvements
-- **r-developer**: Specialized for R package development with MCP integration
-- **security-analyst**: Security auditing and vulnerability assessment
+- **code-reviewer**: Reviews code changes, pull requests, and provides detailed feedback on code quality, security, and best practices
+- **r-developer**: Specialized for R package development, data analysis, and statistical computing with MCP integration
+- **security-analyst**: Security auditing, vulnerability assessment, and defensive security practices (OWASP, NIST, ISO 27001)
 
-### Specialized Agents
-- **documentation-writer**: Creates and maintains technical documentation
-- **test-engineer**: Writes and maintains test suites
-- **performance-optimizer**: Analyzes and optimizes code performance
+### Testing & Reliability Agents
+- **chaos-engineer**: Chaos engineering, resilience testing, and failure injection to validate system reliability 💥
 
 ## Agent Structure
 
@@ -51,7 +51,7 @@ name: agent-name
 description: Brief description of the agent's purpose
 tools: [list, of, available, tools]
 model: claude-3-5-sonnet-20241022
-version: "1.0"
+version: "1.0.0"
 author: Philipp Thoss
 ---
 
@@ -84,10 +84,10 @@ These agents are designed to work seamlessly with MCP servers:
 
 ## Documentation
 
-- [Agent Development Guide](docs/agent-development-guide.md)
-- [Configuration Schema](docs/configuration-schema.md)
-- [Best Practices](docs/best-practices.md)
-- [MCP Integration](docs/mcp-integration.md)
+- [Agent Development Guide](docs/agent-development-guide.md) - Complete guide to creating agents
+- [Configuration Schema](docs/configuration-schema.md) - YAML frontmatter specification
+- [Best Practices](docs/best-practices.md) - Guidelines for high-quality agents
+- [MCP Integration](docs/mcp-integration.md) - Model Context Protocol server setup
 
 ## Contributing
 

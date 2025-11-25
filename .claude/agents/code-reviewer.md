@@ -3,7 +3,7 @@ name: code-reviewer
 description: Reviews code changes, pull requests, and provides detailed feedback on code quality, security, and best practices
 tools: [Read, Edit, Grep, Glob, Bash, WebFetch]
 model: claude-3-5-sonnet-20241022
-version: "1.0"
+version: "1.0.0"
 author: Philipp Thoss
 created: 2025-01-25
 updated: 2025-01-25
@@ -158,11 +158,10 @@ Agent: Analysis of data_processor.py:128-205:
 ## See Also
 
 - [Security Analyst Agent](security-analyst.md) - For deeper security analysis
-- [Performance Optimizer Agent](performance-optimizer.md) - For detailed performance tuning
-- [Test Engineer Agent](test-engineer.md) - For test review and improvement
+- [R Developer Agent](r-developer.md) - For R package development and data science
 
 ---
 
-**Author**: Philipp Thoss  
-**Version**: 1.0  
+**Author**: Philipp Thoss
+**Version**: 1.0.0
 **Last Updated**: 2025-01-25

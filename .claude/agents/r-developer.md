@@ -3,7 +3,7 @@ name: r-developer
 description: Specialized agent for R package development, data analysis, and statistical computing with MCP integration
 tools: [Read, Write, Edit, Bash, Grep, Glob]
 model: claude-3-5-sonnet-20241022
-version: "1.0"
+version: "1.0.0"
 author: Philipp Thoss
 created: 2025-01-25
 updated: 2025-01-25
@@ -241,12 +241,11 @@ my_function <- function(x, na.rm = FALSE) {
 
 ## See Also
 
-- [Statistical Analyst Agent](statistical-analyst.md) - For advanced statistical modeling
-- [Data Scientist Agent](data-scientist.md) - For machine learning workflows
-- [Documentation Writer Agent](documentation-writer.md) - For technical documentation
+- [Code Reviewer Agent](code-reviewer.md) - For R code quality review
+- [Security Analyst Agent](security-analyst.md) - For security assessment of R packages
 
 ---
 
-**Author**: Philipp Thoss (ORCID: 0000-0002-4672-2792)  
-**Version**: 1.0  
+**Author**: Philipp Thoss (ORCID: 0000-0002-4672-2792)
+**Version**: 1.0.0
 **Last Updated**: 2025-01-25

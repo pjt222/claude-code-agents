@@ -3,7 +3,7 @@ name: security-analyst
 description: Specialized agent for security auditing, vulnerability assessment, and defensive security practices
 tools: [Read, Grep, Glob, Bash, WebFetch]
 model: claude-3-5-sonnet-20241022
-version: "1.0"
+version: "1.0.0"
 author: Philipp Thoss
 created: 2025-01-25
 updated: 2025-01-25
@@ -250,12 +250,11 @@ SSLProtocol all -SSLv3 -TLSv1 -TLSv1.1
 ## See Also
 
 - [Code Reviewer Agent](code-reviewer.md) - For general code quality with security focus
-- [Compliance Auditor Agent](compliance-auditor.md) - For regulatory compliance
-- [Incident Response Agent](incident-response.md) - For security incident handling
+- [R Developer Agent](r-developer.md) - For secure R package development
 
 ---
 
-**Author**: Philipp Thoss  
-**Version**: 1.0  
-**Last Updated**: 2025-01-25  
+**Author**: Philipp Thoss
+**Version**: 1.0.0
+**Last Updated**: 2025-01-25
 **Security Classification**: Defensive Use Only
