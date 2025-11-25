@@ -36,15 +36,20 @@ jobs:
       - name: Check YAML syntax
         run: |
           echo "Checking YAML syntax in agent files..."
-          for file in .claude/agents/*.md; do
-            echo "Checking: $file"
-            # Extract YAML frontmatter and validate
-            awk '/^---$/{p++} p==1{print} p==2{exit}' "$file" | tail -n +2 > /tmp/frontmatter.yaml
-            if [ -s /tmp/frontmatter.yaml ]; then
-              python3 -c "import yaml; yaml.safe_load(open('/tmp/frontmatter.yaml'))" && echo "  ✓ Valid YAML"
-            fi
-          done
-
+          shopt -s nullglob
+          files=(.claude/agents/*.md)
+          if [ ${#files[@]} -eq 0 ]; then
+            echo "No agent files found to check."
+          else
+            for file in "${files[@]}"; do
+              echo "Checking: $file"
+              # Extract YAML frontmatter and validate
+              awk '/^---$/{p++} p==1{print} p==2{exit}' "$file" | tail -n +2 > /tmp/frontmatter.yaml
+              if [ -s /tmp/frontmatter.yaml ]; then
+                python3 -c "import yaml; yaml.safe_load(open('/tmp/frontmatter.yaml'))" && echo "  ✓ Valid YAML"
+              fi
+            done
+          fi
       - name: Check for broken links (documentation)
         run: |
           echo "Checking for broken internal links..."
